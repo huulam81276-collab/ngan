@@ -1,0 +1,7 @@
+{
+  "name": "Cùng bạn học tập",
+  "description": "Một ứng dụng giúp các bạn học sinh nhận xét bài viết của nhau một cách hồn nhiên, dễ thương và khích lệ.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
