@@ -1,6 +1,8 @@
 
-/* File này để trống cho máy tính khỏi báo lỗi 404 nha cậu! */
+/* File này giúp ứng dụng của tụi mình không còn bị lỗi 404 nữa nè! */
 body {
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

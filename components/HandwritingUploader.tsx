@@ -21,19 +21,18 @@ const HandwritingUploader: React.FC<Props> = ({ onImageSelect, disabled }) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-6 w-full">
       <div 
         onClick={() => !disabled && fileInputRef.current?.click()}
-        className={`w-full max-w-md aspect-video border-4 border-dashed rounded-3xl flex flex-col items-center justify-center cursor-pointer transition-all
-          ${disabled ? 'bg-gray-100 border-gray-300' : 'bg-white border-yellow-400 hover:bg-yellow-50 hover:border-yellow-500'}`}
+        className={`w-full max-w-lg aspect-[4/3] border-8 border-dashed rounded-[4rem] flex flex-col items-center justify-center cursor-pointer transition-all relative overflow-hidden
+          ${disabled ? 'bg-gray-100 border-gray-300' : 'bg-[#fffdf0] border-orange-300 hover:border-orange-500 hover:rotate-1'}`}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className={`h-16 w-16 mb-2 ${disabled ? 'text-gray-400' : 'text-yellow-500'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-        <p className={`text-lg font-bold ${disabled ? 'text-gray-400' : 'text-yellow-600'}`}>
-          {disabled ? 'Đang đọc bài...' : 'Bấm vào đây để gửi ảnh bài viết nhé!'}
+        <div className="text-8xl mb-4 animate-bounce">📸</div>
+        <p className="text-2xl font-bold text-orange-600 px-8 text-center handwritten">
+          {disabled ? 'Tớ đang lấy kính lúp ra soi bài đây...' : 'Cậu bấm vào đây để chụp hoặc gửi ảnh bài viết cho tớ nhé!'}
         </p>
-        <p className="text-sm text-gray-500">Hoặc kéo ảnh vào đây</p>
+        <div className="absolute bottom-4 right-8 text-4xl opacity-30">🖍️</div>
+        <div className="absolute top-4 left-8 text-4xl opacity-30">🎒</div>
       </div>
       <input 
         type="file" 

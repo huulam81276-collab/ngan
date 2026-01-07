@@ -8,47 +8,42 @@ interface Props {
 
 const ReviewDisplay: React.FC<Props> = ({ review }) => {
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-xl border-4 border-blue-200 relative overflow-hidden max-w-2xl mx-auto mt-8">
-      {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-16 h-16 bg-blue-100 rounded-bl-full -mr-4 -mt-4"></div>
-      <div className="absolute bottom-0 left-0 w-12 h-12 bg-yellow-100 rounded-tr-full -ml-3 -mb-3"></div>
+    <div className="notebook-page rounded-[2rem] p-8 md:p-12 relative max-w-3xl mx-auto mt-8 animate-pop">
+      {/* "Tape" elements */}
+      <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-10 bg-yellow-200/60 rotate-2 border border-yellow-300/50"></div>
       
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-2xl">
-          📖
+      <div className="flex items-center gap-4 mb-10">
+        <div className="text-5xl">🧒</div>
+        <div>
+          <h3 className="text-3xl font-black text-blue-600 handwritten">Cùng bạn học tập nói là:</h3>
+          <div className="h-1 w-full bg-blue-200 rounded-full"></div>
         </div>
-        <h3 className="text-2xl font-bold text-blue-600">Lời nhắn từ Cùng bạn học tập</h3>
       </div>
 
-      <div className="space-y-6">
-        <div className="flex gap-4 items-start">
-          <div className="bg-pink-100 p-2 rounded-xl text-xl">💡</div>
-          <div>
-            <p className="font-bold text-pink-600 text-sm uppercase tracking-wider">Cách dùng từ</p>
-            <p className="text-gray-700 text-lg leading-relaxed">{review.wordChoice}</p>
-          </div>
+      <div className="space-y-8 handwritten">
+        <div className="bg-pink-50/50 p-6 rounded-2xl border-2 border-pink-100 relative">
+          <div className="absolute -top-4 -left-2 bg-pink-400 text-white px-3 py-1 rounded-lg text-sm font-bold rotate-[-5deg]">TỪ NGỮ</div>
+          <p className="text-2xl text-gray-800 leading-snug pt-2">"{review.wordChoice}"</p>
         </div>
 
-        <div className="flex gap-4 items-start">
-          <div className="bg-green-100 p-2 rounded-xl text-xl">📝</div>
-          <div>
-            <p className="font-bold text-green-600 text-sm uppercase tracking-wider">Cách viết câu</p>
-            <p className="text-gray-700 text-lg leading-relaxed">{review.sentenceStructure}</p>
-          </div>
+        <div className="bg-green-50/50 p-6 rounded-2xl border-2 border-green-100 relative">
+          <div className="absolute -top-4 -left-2 bg-green-400 text-white px-3 py-1 rounded-lg text-sm font-bold rotate-[3deg]">CÂU VĂN</div>
+          <p className="text-2xl text-gray-800 leading-snug pt-2">"{review.sentenceStructure}"</p>
         </div>
 
-        <div className="flex gap-4 items-start">
-          <div className="bg-blue-100 p-2 rounded-xl text-xl">✨</div>
-          <div>
-            <p className="font-bold text-blue-600 text-sm uppercase tracking-wider">Cách trang trí</p>
-            <p className="text-gray-700 text-lg leading-relaxed">{review.decoration}</p>
-          </div>
+        <div className="bg-purple-50/50 p-6 rounded-2xl border-2 border-purple-100 relative">
+          <div className="absolute -top-4 -left-2 bg-purple-400 text-white px-3 py-1 rounded-lg text-sm font-bold rotate-[-2deg]">TRANG TRÍ</div>
+          <p className="text-2xl text-gray-800 leading-snug pt-2">"{review.decoration}"</p>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-dashed border-gray-200 text-center">
-          <p className="text-xl font-bold text-orange-500 italic">
-            "{review.encouragement}"
+        <div className="mt-12 text-center py-8 px-6 bg-orange-100/50 rounded-[3rem] border-4 border-dashed border-orange-300 relative">
+          <div className="text-4xl absolute -top-8 left-1/2 -translate-x-1/2">🌟</div>
+          <p className="text-3xl font-black text-orange-600 italic leading-tight">
+            {review.encouragement}
           </p>
+          <div className="flex justify-center gap-2 mt-4 text-2xl">
+            <span>🌸</span><span>✨</span><span>🎈</span>
+          </div>
         </div>
       </div>
     </div>
