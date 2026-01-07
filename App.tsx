@@ -14,7 +14,6 @@ const App: React.FC = () => {
   });
 
   const handleImageSelect = async (base64: string) => {
-    // Khi cậu gửi ảnh, tớ sẽ bắt đầu làm việc ngay lập tức!
     setState({ ...state, image: base64, loading: true, review: null, error: null });
     
     try {
@@ -31,7 +30,7 @@ const App: React.FC = () => {
         image: base64, 
         loading: false, 
         review: null, 
-        error: "Ối, tớ chưa đọc được bài này. Cậu chụp lại thật rõ rồi gửi lại cho tớ nhé!" 
+        error: err.message || "Ối, tớ bị vấp chân rồi! Cậu thử lại nhé?"
       });
     }
   };
@@ -47,7 +46,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen pb-20 px-4 pt-12 bg-[#fdfbf7]">
-      {/* Tiêu đề xinh xắn của lớp mình */}
       <header className="text-center mb-16 relative">
         <div className="inline-block relative">
           <h1 className="text-5xl font-black text-[#2d3436] mb-3 relative z-10 tracking-tight">
@@ -61,7 +59,6 @@ const App: React.FC = () => {
       </header>
 
       <main className="max-w-4xl mx-auto">
-        {/* Màn hình lúc mới vào hoặc sau khi bấm nút "Xem bài khác" */}
         {!state.review && !state.loading && (
           <div className="bg-white rounded-[3rem] p-12 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] border-2 border-yellow-100 flex flex-col items-center animate-in">
             <div className="mb-10 text-center">
@@ -70,8 +67,7 @@ const App: React.FC = () => {
               </div>
               <h2 className="text-3xl font-bold text-[#2d3436]">Chào cậu! Gửi ảnh bài viết cho tớ nhé?</h2>
               <p className="text-gray-400 mt-4 text-lg leading-relaxed">
-                Tớ có thể xem cả chữ viết tay và chữ đánh máy luôn. <br/>
-                Cậu cứ tự tin gửi cho tớ nha!
+                Tớ có thể xem cả chữ viết tay và chữ đánh máy luôn nha!
               </p>
             </div>
             
@@ -84,7 +80,6 @@ const App: React.FC = () => {
           </div>
         )}
 
-        {/* Màn hình lúc tớ đang "đọc" bài */}
         {state.loading && (
           <div className="flex flex-col items-center justify-center py-24 animate-pulse">
             <div className="relative mb-10">
@@ -94,34 +89,46 @@ const App: React.FC = () => {
               <div className="absolute -top-4 -right-4 w-12 h-12 bg-yellow-400 rounded-full border-4 border-white"></div>
             </div>
             <h2 className="text-3xl font-black text-blue-600 mb-2">Đợi tớ một xíu...</h2>
-            <p className="text-xl text-gray-500 font-medium italic">Tớ đang nắn nót đọc từng chữ của cậu đấy!</p>
+            <p className="text-xl text-gray-500 font-medium italic">Tớ đang nắn nót đọc bài của cậu...</p>
           </div>
         )}
 
-        {/* Màn hình nếu tớ lỡ bị "vấp" không đọc được */}
         {state.error && (
-          <div className="bg-red-50 border-4 border-red-100 rounded-[2.5rem] p-12 text-center mt-8 shadow-sm animate-in">
-            <div className="text-7xl mb-6">😿</div>
-            <p className="text-red-600 text-2xl font-black mb-10">{state.error}</p>
+          <div className="bg-red-50 border-4 border-red-200 rounded-[2.5rem] p-12 text-center mt-8 shadow-sm animate-in">
+            <div className="text-7xl mb-6">⚠️</div>
+            <h3 className="text-2xl font-black text-red-600 mb-4">Ối, có lỗi rồi cậu ơi!</h3>
+            <p className="text-gray-700 text-xl mb-10 leading-relaxed max-w-md mx-auto">{state.error}</p>
+            
+            {state.error.includes("API_KEY") && (
+              <div className="mb-10 p-4 bg-white rounded-2xl border-2 border-red-100 text-left text-sm text-gray-600">
+                <p className="font-bold mb-2">Cách sửa cho cậu nè:</p>
+                <ol className="list-decimal ml-5 space-y-1">
+                  <li>Lên Vercel Dashboard của dự án này.</li>
+                  <li>Vào phần <b>Settings</b> -> <b>Environment Variables</b>.</li>
+                  <li>Thêm biến tên là <code>API_KEY</code>.</li>
+                  <li>Dán dãy số từ Google AI Studio vào.</li>
+                  <li>Bấm <b>Deploy</b> lại lần nữa là xong!</li>
+                </ol>
+              </div>
+            )}
+
             <button 
               onClick={handleReset}
               className="bg-red-500 text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-red-600 shadow-xl transition-all transform active:scale-95"
             >
-              Làm lại từ đầu nha!
+              Thử lại nha!
             </button>
           </div>
         )}
 
-        {/* Màn hình khoe kết quả tớ đã nhận xét xong */}
         {state.review && state.image && (
-          <div className="space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-700">
+          <div className="space-y-12 animate-in">
             <div className="flex justify-center">
               <div className="relative group">
                 <img 
                   src={state.image} 
-                  className="max-h-[450px] rounded-3xl shadow-2xl border-[16px] border-white -rotate-1 group-hover:rotate-0 transition-transform duration-500 cursor-zoom-in"
+                  className="max-h-[450px] rounded-3xl shadow-2xl border-[16px] border-white -rotate-1 transition-transform duration-500"
                   alt="Bài của bạn"
-                  onClick={() => window.open(state.image || '', '_blank')}
                 />
                 <div className="absolute -bottom-8 -right-8 bg-green-500 text-white w-20 h-20 rounded-full flex items-center justify-center shadow-xl border-4 border-white text-5xl">
                   🌟
@@ -143,10 +150,8 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Trang trí xung quanh cho giống lớp học của tụi mình */}
       <div className="fixed bottom-10 left-10 text-9xl opacity-10 pointer-events-none hidden lg:block select-none">✏️</div>
       <div className="fixed top-24 right-12 text-9xl opacity-10 pointer-events-none hidden lg:block rotate-12 select-none">🎨</div>
-      <div className="fixed bottom-24 right-16 text-9xl opacity-10 pointer-events-none hidden lg:block -rotate-12 select-none">📏</div>
     </div>
   );
 };
