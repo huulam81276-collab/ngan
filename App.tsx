@@ -25,13 +25,13 @@ const App: React.FC = () => {
         error: null 
       });
     } catch (err: any) {
-      console.error(err);
-      let errorMessage = "Ối, tớ bị vấp chân rồi! Cậu thử lại nhé?";
+      console.error("Ối, lỗi gì thế này:", err);
+      let errorMessage = "Ối! Tớ đang mải chơi nên bị vấp ngã rồi. Cậu thử lại nhé?";
       
       if (err.message === "API_KEY_MISSING") {
-        errorMessage = "Cậu ơi, máy tính chưa tìm thấy 'chìa khóa' API_KEY của cậu!";
+        errorMessage = "CHƯA THẤY CHÌA KHÓA! Tớ lục tung cặp rồi mà chưa thấy API_KEY.";
       } else if (err.message === "PARSE_ERROR") {
-        errorMessage = "Tớ hoa mắt quá nên chưa đọc được chữ, cậu chụp rõ hơn nha!";
+        errorMessage = "CHỮ NÀY LẠ QUÁ! Tớ chưa luận ra được, cậu chụp lại cho tớ nhìn rõ hơn nha.";
       }
 
       setState({ 
@@ -54,28 +54,34 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen pb-32 px-4 pt-10">
-      <header className="text-center mb-12 relative">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -z-10 opacity-20 text-9xl">🎨</div>
-        <div className="inline-block relative">
-          <h1 className="text-6xl font-black text-[#2d3436] mb-2 handwritten tracking-wide">
-            Cùng Bạn Học Tập
+      {/* Decorative Clouds/Birds */}
+      <div className="fixed top-10 left-10 text-6xl animate-bounce-slow opacity-30 select-none">☁️</div>
+      <div className="fixed top-20 right-20 text-5xl animate-pulse opacity-30 select-none">🕊️</div>
+      
+      <header className="text-center mb-14">
+        <div className="inline-block relative scale-110">
+          <h1 className="text-8xl font-black text-blue-900 handwritten tracking-tighter drop-shadow-md">
+            BÉ HỌC VUI
           </h1>
-          <div className="w-full h-4 bg-yellow-400 rounded-full -mt-4 opacity-50"></div>
+          <div className="h-6 w-full bg-pink-300 -mt-8 opacity-40 rounded-full"></div>
         </div>
-        <p className="text-[#636e72] text-2xl font-bold mt-4 handwritten">
-          Gửi bài cho tớ, tớ khen cho mà xem! 🌻
+        <p className="text-blue-500 text-3xl font-bold mt-6 handwritten italic">
+          Tớ sẽ khen bài của cậu thật hay! 💖
         </p>
       </header>
 
       <main className="max-w-4xl mx-auto">
-        {!state.review && !state.loading && (
-          <div className="flex flex-col items-center animate-in">
-            <HandwritingUploader onImageSelect={handleImageSelect} disabled={state.loading} />
-            <div className="mt-12 flex gap-6 text-5xl">
-              <span className="sticker">🧸</span>
-              <span className="sticker">🚲</span>
-              <span className="sticker">🍭</span>
-              <span className="sticker">⚽</span>
+        {!state.review && !state.loading && !state.error && (
+          <div className="flex flex-col items-center">
+            <div className="bg-white p-12 rounded-[5rem] shadow-[20px_20px_0px_#bfdbfe] border-4 border-blue-400 mb-12 w-full max-w-2xl text-center relative">
+              <div className="absolute -top-10 -left-10 text-8xl rotate-[-15deg]">🎨</div>
+              <h2 className="text-5xl font-black text-gray-800 handwritten mb-10">Cậu gửi bài cho tớ đi!</h2>
+              <HandwritingUploader onImageSelect={handleImageSelect} disabled={state.loading} />
+            </div>
+            <div className="flex gap-10 text-6xl">
+              <span className="sticker-btn cursor-default">🧸</span>
+              <span className="sticker-btn cursor-default" style={{animationDelay: '0.2s'}}>🐱</span>
+              <span className="sticker-btn cursor-default" style={{animationDelay: '0.4s'}}>🍭</span>
             </div>
           </div>
         )}
@@ -83,62 +89,72 @@ const App: React.FC = () => {
         {state.loading && (
           <div className="flex flex-col items-center justify-center py-24">
             <div className="relative">
-              <div className="text-9xl animate-bounce">✍️</div>
-              <div className="absolute -bottom-4 left-0 w-full h-2 bg-black/10 rounded-full blur-sm"></div>
+              <div className="text-[10rem] animate-spin-slow">🌀</div>
+              <div className="absolute inset-0 flex items-center justify-center text-6xl">✏️</div>
             </div>
-            <h2 className="text-4xl font-black text-blue-500 mt-12 handwritten">Tớ đang đọc thật kỹ nè...</h2>
-            <p className="text-xl text-gray-400 mt-2 handwritten">Đợi tớ xíu xiu thôi nhé!</p>
+            <h2 className="text-6xl font-black text-pink-500 mt-12 handwritten animate-bounce">
+              Tớ đang soi bài...
+            </h2>
+            <p className="text-3xl text-blue-400 mt-6 handwritten">Chờ tớ một tẹo tèo teo thôi!</p>
           </div>
         )}
 
         {state.error && (
-          <div className="bg-white border-8 border-red-200 rounded-[3rem] p-10 text-center shadow-2xl animate-pop">
-            <div className="text-8xl mb-6">🙀</div>
-            <h3 className="text-3xl font-black text-red-500 mb-6 handwritten">{state.error}</h3>
+          <div className="bg-white border-8 border-red-400 rounded-[4rem] p-12 text-center shadow-[20px_20px_0px_#fee2e2] animate-in">
+            <div className="text-[9rem] mb-10 animate-bounce">😿</div>
+            <h3 className="text-5xl font-black text-red-600 mb-10 handwritten leading-tight">
+              {state.error}
+            </h3>
             
-            {state.error.includes("API_KEY") && (
-              <div className="mb-8 p-6 bg-red-50 rounded-2xl text-left text-gray-700 space-y-4 handwritten text-xl border-2 border-red-100">
-                <p className="font-bold text-red-600">Cách sửa lỗi cho cậu nè:</p>
-                <p>🌟 Cậu vào tab <b>Deployments</b> trên Vercel.</p>
-                <p>🌟 Chọn cái bản mới nhất, bấm nút <b>3 chấm</b>.</p>
-                <p>🌟 Rồi bấm <b>Redeploy</b> là xong luôn!</p>
+            {state.error.includes("CHÌA KHÓA") && (
+              <div className="mb-12 p-10 bg-blue-50 rounded-[3rem] text-left text-gray-800 space-y-6 handwritten text-2xl border-4 border-dashed border-blue-200 relative">
+                <div className="absolute -top-6 -right-6 text-6xl">💡</div>
+                <p className="font-black text-blue-600 text-3xl mb-4">Mẹo nhỏ cho cậu nè:</p>
+                <ol className="list-decimal ml-10 space-y-4">
+                  <li>Vào <b>Vercel Dashboard</b>, chọn đúng dự án này nhé.</li>
+                  <li>Bấm vào <b>Settings</b> rồi chọn <b>Environment Variables</b>.</li>
+                  <li>Kiểm tra xem chữ <code className="bg-white px-2 rounded border-2 border-blue-200">API_KEY</code> có viết hoa hết không?</li>
+                  <li>Nếu có rồi mà vẫn lỗi, cậu hãy vào tab <b>Deployments</b>, bấm vào dấu 3 chấm <span className="font-bold">...</span> ở cái bản mới nhất, rồi chọn <span className="text-blue-600 font-bold underline">Redeploy</span> nhé! Máy tính nó cần "khởi động lại" để thấy chìa khóa đấy!</li>
+                </ol>
               </div>
             )}
 
-            <button onClick={handleReset} className="bg-red-500 text-white px-10 py-4 rounded-full font-bold text-2xl hover:bg-red-600 shadow-[0_6px_0_rgb(185,28,28)] transition-all active:translate-y-1 active:shadow-none">
-              Thử lại lần nữa! 🍀
+            <button onClick={handleReset} className="sticker-btn bg-red-500 text-white px-16 py-8 rounded-full font-black text-4xl shadow-[0_12px_0_#991b1b] active:translate-y-2 active:shadow-none">
+              THỬ LẠI NHA! 🍀
             </button>
           </div>
         )}
 
         {state.review && state.image && (
-          <div className="space-y-12 animate-in">
+          <div className="space-y-16 pb-24">
             <div className="flex justify-center relative">
-              <div className="absolute -top-6 -left-6 text-6xl rotate-[-20deg] z-10">📌</div>
-              <img 
-                src={state.image} 
-                className="max-h-[400px] rounded-lg shadow-2xl border-[12px] border-white rotate-1 hover:rotate-0 transition-transform duration-500" 
-                alt="Bài của bạn" 
-              />
-              <div className="absolute -bottom-6 -right-6 text-6xl rotate-[15deg]">🖍️</div>
+              <div className="absolute -top-12 left-1/4 text-8xl rotate-[-25deg] z-20 select-none drop-shadow-md">📌</div>
+              <div className="p-4 bg-white shadow-2xl rounded-3xl rotate-2 hover:rotate-0 transition-all duration-500">
+                <img 
+                  src={state.image} 
+                  className="max-h-[400px] rounded-2xl border-8 border-blue-50" 
+                  alt="Bài của bạn" 
+                />
+              </div>
+              <div className="absolute -bottom-12 right-1/4 text-8xl rotate-[20deg] select-none drop-shadow-md">🖍️</div>
             </div>
             
             <ReviewDisplay review={state.review} />
             
-            <div className="flex justify-center pt-8">
+            <div className="flex justify-center pt-10">
               <button 
                 onClick={handleReset} 
-                className="bg-[#3498db] text-white px-12 py-5 rounded-full text-3xl font-black shadow-[0_10px_0_#2980b9] transition-all hover:scale-105 active:translate-y-2 active:shadow-none handwritten"
+                className="sticker-btn bg-[#2563eb] text-white px-20 py-10 rounded-full text-5xl font-black shadow-[0_15px_0_#1e3a8a] active:translate-y-2 active:shadow-none handwritten"
               >
-                Gửi bài khác nha! 🎒
+                XEM BÀI KHÁC! 🎒
               </button>
             </div>
           </div>
         )}
       </main>
 
-      <footer className="fixed bottom-0 left-0 w-full p-4 text-center pointer-events-none">
-        <p className="text-gray-400 handwritten text-xl">Lớp chúng mình rất rất vui! 🎵</p>
+      <footer className="fixed bottom-6 left-0 w-full text-center pointer-events-none opacity-40">
+        <p className="text-blue-900 handwritten text-3xl font-bold">Lớp chúng mình rất rất vui! 🎵</p>
       </footer>
     </div>
   );

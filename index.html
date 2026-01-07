@@ -4,41 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cùng bạn học tập - Nhận Xét Bài Viết</title>
+    <title>Cùng Bạn Học Tập 🎒</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --paper-bg: #fff;
+            --line-color: #e0f2fe;
+            --margin-color: #fca5a5;
+        }
         body {
             font-family: 'Quicksand', sans-serif;
-            background-color: #fff9e6;
+            background-color: #f0f9ff;
+            /* Nền vở ô ly tiểu học */
             background-image: 
-                linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 50%, #fff 50%, #fff 100%),
-                linear-gradient(rgba(200,200,200,0.1) .1em, transparent .1em);
-            background-size: 100% 2em;
+                linear-gradient(var(--line-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            margin: 0;
+            padding: 0;
         }
         .handwritten {
             font-family: 'Patrick Hand', cursive;
         }
-        .notebook-page {
+        .paper-sheet {
             background: white;
-            background-image: radial-gradient(#e5e5e5 1px, transparent 1px);
-            background-size: 20px 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05), inset 0 0 0 10px white;
-            border: 1px solid #ddd;
+            box-shadow: 10px 10px 0px #bae6fd;
+            border: 3px solid #0ea5e9;
+            position: relative;
         }
-        .sticker {
-            filter: drop-shadow(2px 4px 0px rgba(0,0,0,0.1));
+        .paper-sheet::before {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--margin-color);
+            opacity: 0.5;
+        }
+        .sticker-btn {
             transition: all 0.2s;
+            filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.1));
         }
-        .sticker:hover {
-            transform: scale(1.05) rotate(2deg);
+        .sticker-btn:hover {
+            transform: scale(1.1) rotate(2deg);
         }
-        .animate-pop {
-            animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .animate-bounce-slow {
+            animation: bounce 2s infinite;
         }
-        @keyframes pop {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
 <script type="importmap">
